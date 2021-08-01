@@ -18,6 +18,7 @@ This project has not yet been completed. The following vulnerabilities are alrea
 ## Learning Path
 
 The main objective of this project is to improve your skills, so I suggest the following path:
+
     - Try to enumerate API endpoints using available security tools. If that doesn't work, create a custom wordlist;
     - Discover how to exploit each of the vulnerabilities, manually and with automated tools;
     - Describe all steps to reach the goals;

@@ -1,0 +1,235 @@
+openapi: 3.0.1
+info:
+  title: API_VULN_BY_DESIGN VuByD
+  description: VuByD VULN BY DESIGN API
+  version: "0.1"
+servers:
+- url: /
+components: {}
+paths:
+  /api/v1/whoami:
+    get:
+      tags:
+      - whoami
+      summary: Whoami
+      description: Display Logged user
+      operationId: api_views.users.whoami
+      responses:
+        200:
+          description: See who was using the jwt token
+          content: {}
+      security:
+      - jwt: ['secret']
+
+  /api/v1/users/register:
+    post:
+      tags:
+      - users
+      summary: Register new user
+      description: Register new user
+      operationId: api_views.users.register_user
+      requestBody:
+        description: Username of the user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                email:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Sucessfully created user
+          content: {}
+        400:
+          description: Invalid request
+          content: {}
+  /api/v1/users/login:
+    post:
+      tags:
+      - users
+      summary: Login to VuByD
+      description: Login to VuByD
+      operationId: api_views.users.login_user
+      requestBody:
+        description: Username of the user
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+        required: true
+      responses:
+        200:
+          description: Sucessfully logged in user
+          content: {}
+        400:
+          description: Invalid request
+          content: {}
+  /api/v1/users/{email}:
+    get:
+      tags:
+        - users
+      summary: Retrieves user by email
+      description: Displays user by email
+      operationId: api_views.users.get_by_email
+      parameters:
+        - name: email
+          in: path
+          description: retrieve email data
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successfully display user info
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    username:
+                      type: string
+                    email:
+                      type: string
+        404:
+          description: User not found
+          content: { }
+      security:
+      - jwt: ['secret']
+  /api/v1/admin/{username}:
+    delete:
+      tags:
+      - users
+      summary: Deletes user by username (Only Admins)
+      description: Deletes user by username (Only Admins)
+      operationId: api_views.users.delete_user
+      parameters:
+      - name: username
+        in: path
+        description: Delete username
+        required: true
+        schema:
+          type: string
+      responses:
+        204:
+          description: Sucessfully deleted user
+          content: {}
+        401:
+          description: User not authorized
+          content: {}
+        404:
+          description: User not found
+          content: {}
+      security:
+      - jwt: ['secret']
+  /api/v1/users/email:
+    put:
+      tags:
+      - users
+      summary: Update user email
+      description: Update user email
+      operationId: api_views.users.update_email
+      requestBody:
+        description: email
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+        required: true
+      responses:
+        204:
+          description: Sucessfully updated user email
+          content: {}
+        400:
+          description: Invalid request
+          content: {}
+        401:
+          description: User not authorized
+          content: {}
+      security:
+      - jwt: ['secret']
+  /api/v1/users/{username}/password:
+    put:
+      tags:
+        - users
+      summary: Update users password
+      description: Update users password
+      operationId: api_views.users.update_password
+      parameters:
+        - name: username
+          in: path
+          description: username to update password
+          required: true
+          schema:
+            type: string
+      requestBody:
+        description: field to update
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+        required: true
+      responses:
+        204:
+          description: Sucessfully updated users password
+          content: { }
+        400:
+          description: Invalid request
+          content: { }
+        401:
+          description: User not authorized
+          content: {}
+      security:
+      - jwt: ['secret']
+  /api/v1/webaccess/{user_id}/:
+    get:
+      tags:
+        - webacess
+      summary: Get All urls user has accessed
+      description: List Urls 
+      operationId: api_views.webaccess.get_webaccess_by_user
+      parameters:
+        - name: user_id
+          in: path
+          description: User ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Get urls
+          content: { }
+        400:
+          description: Invalid request
+          content: { }
+        401:
+          description: User not authorized
+          content: {}
+      security:
+      - jwt: ['secret']    
+
+components:
+  securitySchemes:
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      x-bearerInfoFunc: app.decode_auth_token

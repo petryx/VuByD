@@ -1,9 +1,9 @@
 ## Vuln by Design
 
-This project was inspired by (https://github.com/erev0s/VAmPI][https://github.com/erev0s/VAmPI] a very good project to study API vulnerabilities.
-Thanks, @erev0s for the amazing project.
+This project was inspired by [https://github.com/erev0s/VAmPI](https://github.com/erev0s/VAmPI) a very good project to study API vulnerabilities.
+Thanks, [erev0s/VAmPI](https://github.com/erev0s/VAmPI) for the amazing project.
 
-In this project, I tried to build BugBounty style because almost all web apps use a background API. Made some modifications, inserted new vulnerabilities based on (Owasp API Security Top 10 2019) [https://owasp.org/www-project-api-security/]
+In this project, I tried to build BugBounty style because almost all web apps use a background API. Made some modifications, inserted new vulnerabilities based on [Owasp API Security Top 10 2019](https://owasp.org/www-project-api-security/)
 This project has not yet been completed. The following vulnerabilities are already implemented:
 
 - API1: 2019 Broken object level authorization
@@ -25,12 +25,29 @@ The main objective of this project is to improve your skills, so I suggest the f
 
 ## How to run
 
-### Clone the Repo
+### Install locally
 
 ```bash
 
-$ git clone 
+$ git clone https://github.com/petryx/VuByD.git
+$ cd VuByD
+$ python3 -m venv .env
+$ source .env/bin/activate
+$ pip install -r requirements.txt
 ```
+
+### Execute
+
+```bash
+
+$ cd VuByD
+$ source .env/bin/activate
+$ python3 app.py
+```
+
+Access on browser ```http://127.0.0.1:5000```
+
+Happy Hacking. 😎
 
 ## Note
 
